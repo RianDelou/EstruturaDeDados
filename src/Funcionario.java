@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Funcionario {
     private String matricula;
@@ -8,7 +9,11 @@ public class Funcionario {
     private int anoDeContratacao;
 
     public Funcionario(String matricula) {
-        matricula = matricula;
+        this.matricula = matricula;
+    }
+
+    public Funcionario() {
+
     }
 
     public String getMatricula() {
@@ -59,6 +64,20 @@ public class Funcionario {
             return 0;
         }
         return 1;
-    }       //duvidas no compareTo, esse método não está completo ou correto
+    } //duvidas no compareTo, esse método não está completo ou correto
 
+    public double aplicarAumento() {
+        Scanner input = new Scanner(System.in);
+
+        double aumento;
+        double aumentoCalculo;
+
+        System.out.print("digite o aumento em porcentagem (0 a 100) : ");
+        aumento = input.nextInt();
+
+        aumentoCalculo = aumento/100 * salario + salario;
+
+        return aumentoCalculo;
+
+    }
 }
