@@ -2,35 +2,43 @@
 import java.util.Arrays;
 import java.util.Objects;
     public class Cadrasto {
-        private static Funcionario[] funcionario;
-        private Funcionario contador; //*
+        private final Funcionario[] funcionarioLista;
+        private int total;
 
-        public Cadrasto(Funcionario[] funcionario, Funcionario contador) {
-            Cadrasto.funcionario = funcionario;
-            this.contador = contador;
+        public Cadrasto(int tamanho) {
+
+            this.funcionarioLista = new Funcionario[tamanho];
+
         }
 
-        public static void admitir () {
-            Funcionario funcionario1 = new Funcionario();
+        public void admitir (String matricula) {
+           int result = busca(matricula);
 
-            if(Objects.equals(funcionario1.getMatricula(), funcionario1.getMatricula())) {
-                System.out.print("cadastro não pode ser efetuado."); // (if com warning)
+           if(result != -1) {
+               System.out.println("Já existe um funcionario com está matricula!");
+           } else {
+               Funcionario f = new Funcionario(matricula);
+               this.funcionarioLista[this.total] = f;
+               System.out.println("Cadastramento realizado");
+           }
+
+
+        }
+
+        public int busca (String matricula) {
+
+            if (this.total == 0) { //reduntante
+                return -1;
             } else {
-                for(int i = 0; i < funcionario.length; i++) {
-
-                    funcionario[i] = funcionario[i + 1];
-
+                Funcionario procurado = new Funcionario(matricula);
+                for (int i = 0; i <= this.total - 1; i++) {
+                    if (this.funcionarioLista[i].compareTo(procurado) == 0) {
+                        return i;
+                    }
                 }
-
-                System.out.print("funcionario adicionado.");
+                return -1;
             }
-
         }
 
-        public static void exibir () {
-
-            System.out.print("informações de todos os funcionarios: "+ Arrays.toString(funcionario));
-
-        }
+        //próxima função
     }
-

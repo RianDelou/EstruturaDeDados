@@ -1,7 +1,6 @@
 import java.util.Objects;
-import java.util.Scanner;
 
-public class Funcionario {
+public class Funcionario implements Comparable <Funcionario> {
     private String matricula;
     private String nome;
     private String cargo;
@@ -54,30 +53,19 @@ public class Funcionario {
 
     public String toString() {
 
-        return "";
+        return this.matricula + " " + this.nome + " " + this.cargo + "RS " + this.salario + " " + this.anoDeContratacao;
 
     }
 
-    public int compareTo(String ma, String ma2) {
+    public int compareTo(Funcionario other) {
+        int result;
+        result = this.matricula.compareTo(other.matricula);
+        return result;
+    }
 
-        if(Objects.equals(ma, ma2)) {
-            return 0;
-        }
-        return 1;
-    } //duvidas no compareTo, esse método não está completo ou correto
+    public void aplicarAumento(double porcentagem) {
 
-    public double aplicarAumento() {
-        Scanner input = new Scanner(System.in);
-
-        double aumento;
-        double aumentoCalculo;
-
-        System.out.print("digite o aumento em porcentagem (0 a 100) : ");
-        aumento = input.nextInt();
-
-        aumentoCalculo = aumento/100 * salario + salario;
-
-        return aumentoCalculo;
+        this.salario = this.salario + this.salario * porcentagem / 100;
 
     }
 }
