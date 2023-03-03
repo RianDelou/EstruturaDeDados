@@ -2,74 +2,82 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Cadastro {
-        private final Funcionario[] funcionarioLista;
-        private int total;
+    private final Funcionario[] funcionarioLista;
+    private int total;
 
-        public Cadastro(int tamanho) {
+    public Cadastro(int tamanho) {
 
-            this.funcionarioLista = new Funcionario[tamanho];
+        this.funcionarioLista = new Funcionario[tamanho];
 
+    }
+
+    public void admitir(String matricula) {
+        int result = busca(matricula);
+
+        if (result != -1) {
+            System.out.println("Já existe um funcionario com está matricula!");
+        } else {
+            Funcionario f = new Funcionario(matricula);
+            this.funcionarioLista[this.total] = f;
+            System.out.println("Cadastramento realizado");
         }
+    }
 
-        public void admitir (String matricula) {
-            int result = busca(matricula);
+    public void exibir() {
+        System.out.println("Todos os funcionarios cadastrados: " + Arrays.toString(funcionarioLista));
+    }
 
-            if (result != -1) {
-                System.out.println("Já existe um funcionario com está matricula!");
-            } else {
-                Funcionario f = new Funcionario(matricula);
-                this.funcionarioLista[this.total] = f;
-                System.out.println("Cadastramento realizado");
+    public int busca(String matricula) {
+
+        Funcionario procurado = new Funcionario(matricula);
+
+        for (int i = 0; i <= this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(procurado) == 0) {
+                return i;
             }
         }
-
-        public void exibir() {
-                System.out.println("Todos os funcionarios cadastrados: "+ Arrays.toString(funcionarioLista));
-            }
-
-        public int busca (String matricula) {
-
-                Funcionario procurado = new Funcionario(matricula);
-
-                for (int i = 0; i <= this.total - 1; i++) {
-                    if (this.funcionarioLista[i].compareTo(procurado) == 0) {
-                        return i;
-                    }
-                }
-                return -1;
-            }
+        return -1;
+    }
 
 
-        public void aumentoFuncionario(int matricula, double percentualParaAplicar) {
-                Funcionario aumento = new Funcionario();
+    public void aumentoFuncionario(String matricula, double percentualParaAplicar) {
+        Funcionario aumento = new Funcionario();
 
-            if(busca(String.valueOf(matricula)) == matricula) {
+        for (int i = 0; i < this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(aumento) == 0) {
                 aumento.aplicarAumento(percentualParaAplicar);
             } else {
-                System.out.println("matricula inexistente. ");
-            }
-
-        }
-
-        public void exibirDados (int matricula) {
-                Funcionario exibirFuncionario = new Funcionario();
-
-            if(busca(String.valueOf(matricula)) == matricula) {
-                System.out.print(exibirFuncionario.getMatricula());
-            } else {
-                System.out.println("matricula inexistente. ");
-            }
-
-        }
-
-        public void demitir (String matricula) {
-            Funcionario demitirFuncionario = new Funcionario();
-
-            if(Objects.equals(matricula, demitirFuncionario.getMatricula())) {
-                matricula ==
-            } else {
-                System.out.println("Matricula não encontrada");
+                System.out.println("Matricula inexistente");
             }
         }
-        //próxima função
     }
+
+        public void exibirDados (String matricula){
+            Funcionario exibirFuncionario = new Funcionario();
+
+            for (int i = 0; i < this.total - 1; i++) {
+                if (this.funcionarioLista[i].compareTo(exibirFuncionario) == 0) {
+                            exibirFuncionario.toString();
+                } else {
+                    System.out.println("Matricula inexistente");
+                }
+
+            }
+        }
+
+            public void demitir (String matricula) {
+
+                Funcionario demitir = new Funcionario(matricula);
+
+                for (int i = 0; i < this.total - 1; i++) {
+                    if (this.funcionarioLista[i].compareTo(demitir) == 0) {
+                        matricula = "demitido";
+                        System.out.println("funcionario " + matricula);
+                    } else {
+                        System.out.println("Matricula inexistente");
+                    }
+
+                }
+            }
+        }
+
