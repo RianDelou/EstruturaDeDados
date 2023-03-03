@@ -19,6 +19,7 @@ public class Cadastro {
         } else {
             Funcionario f = new Funcionario(matricula);
             this.funcionarioLista[this.total] = f;
+            this.total++;
             System.out.println("Cadastramento realizado");
         }
     }
@@ -39,11 +40,25 @@ public class Cadastro {
         return -1;
     }
 
+    public int buscaSequencialMelhorada(String matricula) {
+        int i;
+
+        Funcionario procurado = new Funcionario(matricula);
+
+        for (i = 0; i <= this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(procurado) >= 0) { //ordem crescente
+                return i;
+            }
+        }
+        return i;
+
+    }
+
 
     public void aumentoFuncionario(String matricula, double percentualParaAplicar) {
         Funcionario aumento = new Funcionario();
 
-        for (int i = 0; i < this.total - 1; i++) {
+        for (int i = 0; i <= this.total - 1; i++) {
             if (this.funcionarioLista[i].compareTo(aumento) == 0) {
                 aumento.aplicarAumento(percentualParaAplicar);
             } else {
@@ -69,7 +84,7 @@ public class Cadastro {
 
                 Funcionario demitir = new Funcionario(matricula);
 
-                for (int i = 0; i < this.total - 1; i++) {
+                for (int i = 0; i <= this.total - 1; i++) {
                     if (this.funcionarioLista[i].compareTo(demitir) == 0) {
                         matricula = "demitido";
                         System.out.println("funcionario " + matricula);
