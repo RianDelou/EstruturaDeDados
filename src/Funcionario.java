@@ -6,6 +6,7 @@ public class Funcionario implements Comparable <Funcionario> {
     private String cargo;
     private double salario;
     private int anoDeContratacao;
+    private int ano;
 
     public Funcionario(String matricula) {
         this.matricula = matricula;
@@ -51,9 +52,13 @@ public class Funcionario implements Comparable <Funcionario> {
         this.salario = salario;
     }
 
+    public void setAno (int ano) {
+        this.ano = ano;
+    }
+
     public String toString() {
 
-        return this.matricula + " " + this.nome + " " + this.cargo + "RS " + this.salario + " " + this.anoDeContratacao;
+        return this.matricula + "; " + this.nome + "; " + this.cargo + "; RS " + this.salario + "; " + this.anoDeContratacao;
 
     }
 
@@ -65,7 +70,7 @@ public class Funcionario implements Comparable <Funcionario> {
 
     public void aplicarAumento(double porcentagem) {
 
-        this.salario = this.salario + this.salario * porcentagem / 100;
+        salario = this.salario + this.salario * porcentagem / 100;
 
     }
 }
