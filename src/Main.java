@@ -7,8 +7,6 @@ public class Main {
         double percentualDoAumento;
         char executarNovamente;
 
-        Funcionario f2 = new Funcionario();
-
         Cadastro totalDeCadastro = new Cadastro(1000);
 
         Scanner input = new Scanner(System.in);
@@ -24,11 +22,11 @@ public class Main {
                      5 – Demitir um funcionário""");
 
             choise = input.nextInt();
+
             if(choise == 1) {
 
                 System.out.println("Digite a matricula do novo funcionario: ");
                 matricula = input.next();
-                Funcionario f1 = new Funcionario(matricula);
                 totalDeCadastro.admitir(matricula);
 
             } else if (choise == 2) {
@@ -59,6 +57,7 @@ public class Main {
 
             System.out.println("\nDeseja fazer outra alteração? (s/n) ");
             executarNovamente = input.next().charAt(0);
+
         } while (executarNovamente == 's');
 
 

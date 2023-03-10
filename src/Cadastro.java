@@ -1,5 +1,7 @@
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class Cadastro {
     private final Funcionario[] funcionarioLista;
@@ -11,15 +13,45 @@ public class Cadastro {
 
     }
 
-    public void admitir(String matricula) {
-        int result = busca(matricula);
+    public void admitir(String matr) {
 
-        if (result != -1) {
-            System.out.println("Já existe um funcionario com está matricula!");
+        Scanner input = new Scanner(System.in);
+        String nome, cargo;
+        double salario;
+        int ano;
+
+        if (this.total == this.funcionarioLista.length) {
+            System.out.println("Cadastro cheio!!");
         } else {
-            Funcionario f = new Funcionario(matricula);
-            this.funcionarioLista[this.total] = f;
-            System.out.println("Cadastramento realizado");
+
+            int result = this.buscaSequencialMelhorada(matr);
+            if (result == -1) {
+                System.out.println("Já existe um funcionário com esta matrícula!");
+            } else {
+
+                Funcionario f = new Funcionario(matr);
+
+                System.out.println("Informe o nome do funcionário: ");
+                nome = input.nextLine();
+                f.setNome(nome);
+                System.out.println("Informe o cargo que o funcioário irá ocupar: ");
+                cargo = input.nextLine();
+                f.setCargo(cargo);
+                System.out.println("Informe o salário inicial do funcionário: ");
+                salario = input.nextDouble();
+                input.nextLine();
+                f.setSalario(salario);
+
+                Calendar cal = GregorianCalendar.getInstance();
+                ano = cal.get(Calendar.YEAR);
+
+                f.setAno(ano);
+
+                this.funcionarioLista[this.total] = f;
+                this.total++;
+                System.out.println("Cadastramento realizado");
+
+            }
         }
     }
 
@@ -27,57 +59,62 @@ public class Cadastro {
         System.out.println("Todos os funcionarios cadastrados: " + Arrays.toString(funcionarioLista));
     }
 
-    public int busca(String matricula) {
+    public int buscaSequencialMelhorada(String matricula) {
+        int i;
 
         Funcionario procurado = new Funcionario(matricula);
 
-        for (int i = 0; i <= this.total - 1; i++) {
-            if (this.funcionarioLista[i].compareTo(procurado) == 0) {
+        for (i = 0; i <= this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(procurado) >= 0) { //ordem crescente
                 return i;
             }
         }
-        return -1;
+        return i;
+
     }
 
-
     public void aumentoFuncionario(String matricula, double percentualParaAplicar) {
-        Funcionario aumento = new Funcionario();
+        Funcionario aumento = new Funcionario(matricula);
 
-        for (int i = 0; i < this.total - 1; i++) {
+
+        for (int i = 0; i <= this.total - 1; i++) {
             if (this.funcionarioLista[i].compareTo(aumento) == 0) {
-                aumento.aplicarAumento(percentualParaAplicar);
+                this.funcionarioLista[i].aplicarAumento(percentualParaAplicar);
+
+                System.out.println("aumento aplicado :)");
+
             } else {
                 System.out.println("Matricula inexistente");
             }
         }
     }
 
-        public void exibirDados (String matricula){
-            Funcionario exibirFuncionario = new Funcionario();
+    public void exibirDados (String matricula) {
 
-            for (int i = 0; i < this.total - 1; i++) {
-                if (this.funcionarioLista[i].compareTo(exibirFuncionario) == 0) {
-                            exibirFuncionario.toString();
-                } else {
-                    System.out.println("Matricula inexistente");
-                }
+        Funcionario exibirFuncionario = new Funcionario(matricula);
 
+        for (int i = 0; i < this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(exibirFuncionario) == 0) {
+                System.out.print(exibirFuncionario.getMatricula() + " " + exibirFuncionario.getNome() +" "+ exibirFuncionario.getSalario());
+            } else {
+                System.out.println("Matricula inexistente");
             }
+
         }
+    }
 
-            public void demitir (String matricula) {
+    public void demitir (String matricula) {
 
-                Funcionario demitir = new Funcionario(matricula);
+        Funcionario demitir = new Funcionario(matricula);
 
-                for (int i = 0; i < this.total - 1; i++) {
-                    if (this.funcionarioLista[i].compareTo(demitir) == 0) {
-                        matricula = "demitido";
-                        System.out.println("funcionario " + matricula);
-                    } else {
-                        System.out.println("Matricula inexistente");
-                    }
-
-                }
+        for (int i = 0; i <= this.total - 1; i++) {
+            if (this.funcionarioLista[i].compareTo(demitir) == 0) {
+                matricula = "demitido";
+                System.out.println("funcionario " + matricula);
+            } else {
+                System.out.println("Matricula inexistente");
             }
-        }
 
+        }
+    }
+}
